@@ -48,7 +48,7 @@ tasks.register('reports') {
 }
 
 gitPublish {
-    repoUri = 'git@github.com:Old-Dominion-Univ-CS350/lab4-documentation-VyVNam.git'
+    repoUri = 'git@github.com:vyvNam/lab4-documentation-VyVNam.git'
     branch = 'gh-pages'
 
     contents {
