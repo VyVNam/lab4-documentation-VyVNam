@@ -1,3 +1,4 @@
+* [Reports](https://Old-Dominion-Univ-CS350.github.io/lab4-documentation-VyVNam/)
 # WordCounter
 
 There are a number of applications in which it is useful to know what the most
