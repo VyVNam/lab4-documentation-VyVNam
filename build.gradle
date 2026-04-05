@@ -8,7 +8,6 @@ repositories {
     mavenCentral()
 }
 
-
 java {
     sourceCompatibility = JavaVersion.toVersion(11)
     targetCompatibility = JavaVersion.toVersion(11)
@@ -24,10 +23,47 @@ tasks.withType(Test) {
     ignoreFailures = true
     testLogging {
         events "passed", "skipped", "failed"
-        }
+    }
 }
 
-application { //Allows  ./gradlew run --args=path-to-test-data
+application {
     mainClass = 'edu.odu.cs.MostCommonWords'
 }
 
+tasks.register('copyWebsiteContent', Copy) {
+    from 'src/main/html'
+    into 'build/reports'
+}
+
+tasks.register('copyDocs', Copy) {
+    dependsOn javadoc
+    from 'build/docs'
+    into 'build/reports'
+}
+
+tasks.register('reports') {
+    dependsOn build
+    dependsOn copyWebsiteContent
+    dependsOn copyDocs
+}
+
+gitPublish {
+    repoUri = 'git@github.com:Old-Dominion-Univ-CS350/lab4-documentation-VyVNam.git'
+    branch = 'gh-pages'
+
+    contents {
+        from('build/reports')
+    }
+}
+
+tasks.named('gitPublishCopy') {
+    dependsOn test
+    dependsOn javadoc
+    dependsOn copyDocs
+    dependsOn copyWebsiteContent
+}
+
+tasks.register('deployReports') {
+    dependsOn reports
+    dependsOn gitPublishPush
+}
